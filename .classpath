@@ -14,5 +14,6 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/BookStoreClienteEJB"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/BookStoreLivroEJB"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/BooKStoreComprasEJB"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -12,20 +12,25 @@ import javax.ejb.Stateless;
 import br.com.bookstore.bean.ClienteBeanModel;
 import br.com.bookstore.bean.LivroBeanModel;
 import br.com.bookstore.cliente.Usuario;
+import br.com.bookstore.compras.PromocaoVendas;
+import br.com.bookstore.compras.bean.PromocaoBeanModel;
 import br.com.bookstore.exceptions.ClienteException;
 import br.com.bookstore.model.exceptions.LivroException;
 import br.com.bookstore.model.livro.Livro;
+import br.com.bookstoreExecption.PromocaoException;
 
 @Stateless
 @Local(ServiceBookStore.class)
 public class ServiceBookStoreBean implements  ServiceBookStore{
-
+	
 	@EJB(name="BookStoreLivroEJB/LivroBeanGen",beanInterface=LivroBeanModel.class)
 	private LivroBeanModel livroEjb;
 	
-	@EJB(name="BookStoreLivroEJB/ClienteBeanGen",beanInterface=ClienteBeanModel.class)
+	@EJB(name="BookStoreClienteEJB/ClienteBeanGen",beanInterface=ClienteBeanModel.class)
 	private ClienteBeanModel clienteEjb;	
 	
+	@EJB(name="BooKStoreComprasEJB/PromocaoBean",beanInterface=PromocaoBeanModel.class)
+	private PromocaoBeanModel promocaoEjb;		
 	
 	@Override
 	public void cadastrarCliente(Usuario cliente) throws ClienteException {
@@ -93,7 +98,7 @@ public class ServiceBookStoreBean implements  ServiceBookStore{
 	}
 
 	@Override
-	public Livro obterLivro(String isbn) {
+	public Livro obterLivro(String isbn) throws LivroException {
 		// TODO Auto-generated method stub
 		return livroEjb.obterLivro(isbn);
 	}
@@ -101,6 +106,38 @@ public class ServiceBookStoreBean implements  ServiceBookStore{
 	@Override
 	public void removerLivro(Livro livro) throws LivroException {
 		livroEjb.removerLivro(livro);
+		
+	}
+
+	@Override
+	public PromocaoVendas buscaPromocaoAtiva() throws PromocaoException {
+		// TODO Auto-generated method stub
+		return promocaoEjb.buscaPromocaoAtiva();
+	}
+
+	@Override
+	public ArrayList<PromocaoVendas> buscaTodasPromocao() {
+		// TODO Auto-generated method stub
+		return promocaoEjb.buscaTodasPromocao();
+	}
+
+	@Override
+	public void cadastraPromocao(PromocaoVendas promocao)
+			throws PromocaoException {
+		promocaoEjb.cadastraPromocao(promocao);
+		
+	}
+
+	@Override
+	public void editaPromocao(PromocaoVendas promocao) throws PromocaoException {
+		promocaoEjb.editaPromocao(promocao);
+		
+	}
+
+	@Override
+	public void removePromocao(PromocaoVendas promocao)
+			throws PromocaoException {
+		promocaoEjb.removePromocao(promocao);
 		
 	}
 
